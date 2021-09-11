@@ -16,10 +16,8 @@ version: 0.0.0+000
 
 #### Name
 
-```yaml
-iOS: CFBundleShortVersionString (Version number)
-Android: versionName
-```
+- iOS: CFBundleShortVersionString (Version number)
+- Android: versionName
 
 #### Details
 
@@ -32,10 +30,8 @@ Android: versionName
 
 #### Name
 
-```yaml
-iOS: CFBundleVersion (Build number)
-Android: versionCode
-```
+- iOS: CFBundleVersion (Build number)
+- Android: versionCode
 
 #### Details
 
