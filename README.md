@@ -7,9 +7,9 @@ A command-line tool for easily incrementing pubspec.yaml version numbers.
 ## Installation
 
 ```console
-$ pub global activate pubversion
+$ pub global activate pub_version_plus
 # or
-$ flutter pub global activate pubversion
+$ flutter pub global activate pub_version_plus
 ```
 
 Learn more about activating and using packages [here][pub global].
