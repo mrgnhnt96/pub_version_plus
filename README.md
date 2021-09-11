@@ -26,28 +26,37 @@ Learn more about activating and using packages [here][pub global].
 * `major`
 * `minor`
 * `patch`
+* `build`
 
 ### `pubversion major`
 
-```
+```bash
 $ pubversion major
 test_package upgraded from 1.2.1 to 2.0.0
+// with build number
+test_package upgraded from 1.2.1+2 to 2.0.0+0
 ```
 
 ### `pubversion minor`
 
-```
+```bash
 $ pubversion minor
-test_package upgraded from 1.0.1 to 1.1.0
+test_package upgraded from 1.0.1+3 to 1.1.0+0
 ```
 
 ### `pubversion patch`
 
-```
+```bash
 $ pubversion patch
-test_package upgraded from 1.0.0 to 1.0.1
+test_package upgraded from 1.0.0+4 to 1.0.1+0
 ```
 
+### `pubversion build`
+
+```bash
+$ pubversion build
+test_package upgraded from 1.0.0+4 to 1.0.0+5
+```
 
 [activating]: https://www.dartlang.org/tools/pub/cmd/pub-global#activating-a-package
 [pub global]: https://www.dartlang.org/tools/pub/cmd/pub-global
