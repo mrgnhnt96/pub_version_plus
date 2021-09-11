@@ -1,22 +1,5 @@
-# pubversion
-
-## 1.0.2
-
-- Updated analysis_options.yaml
-
-## 1.0.1
-
-- Housekeeping for Dart SDK 2.7.0
+# pub_version_plus
 
 ## 1.0.0
 
-- Initial release with all features working.
-
-## 1.0.0-rc.2
-
-- Spelling corrections.
-- Set up Travis CI.
-
-## 1.0.0-rc.1
-
-- Initial working version.
+- Initial Release
