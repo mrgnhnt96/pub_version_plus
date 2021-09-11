@@ -1,0 +1,5 @@
+name: pub_version_plus_test
+description: "[test] A package to easily increment version numbers in pubspec.yaml files."
+
+environment:
+  sdk: ">=2.13.0 <3.0.0"

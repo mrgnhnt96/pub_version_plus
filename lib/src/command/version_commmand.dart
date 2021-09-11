@@ -1,0 +1,52 @@
+import 'package:args/args.dart';
+import 'package:args/command_runner.dart';
+
+import '/src/util/enum.dart';
+import '/src/util/pubspec_handler.dart';
+
+abstract class VersionCommand extends Command<int> {
+  VersionCommand(this.path) : handler = PubspecHandler(path);
+
+  final String path;
+  final PubspecHandler handler;
+
+  PubVersion get type;
+
+  @override
+  final argParser = ArgParser(usageLineLength: 80);
+
+  @override
+  String get name;
+
+  @override
+  String get description;
+
+  @override
+  String get invocation => type.invocation;
+
+  @override
+  String get summary => '$invocation\n$description';
+
+  void checkUnsupported() {
+    var unsupported =
+        argResults?.rest.where((arg) => !arg.startsWith('-')).toList();
+    if (unsupported != null && unsupported.isNotEmpty) {
+      throw UsageException(
+          'Arguments were provided that are not supported: '
+          "'${unsupported.join(' ')}'.",
+          argParser.usage);
+    }
+  }
+
+  Future<int> increaseVersion() async {
+    checkUnsupported();
+    await handler.initialize();
+
+    final message = await handler.nextVersion(type);
+
+    return message.code;
+  }
+
+  @override
+  Future<int> run() => increaseVersion();
+}

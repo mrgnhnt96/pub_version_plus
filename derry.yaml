@@ -1,0 +1,11 @@
+major:
+  - dart run bin/pub_version_plus.dart major
+
+minor:
+  - dart run bin/pub_version_plus.dart minor
+
+patch:
+  - dart run bin/pub_version_plus.dart patch
+
+build:
+  - dart run bin/pub_version_plus.dart build
