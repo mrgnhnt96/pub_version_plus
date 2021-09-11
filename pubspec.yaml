@@ -12,6 +12,7 @@ dependencies:
   pub_semver: ^2.0.0
   args: ^2.2.0
   io: ^1.0.3
+  meta: ^1.7.0
 
 dev_dependencies:
   derry: ^1.4.3
