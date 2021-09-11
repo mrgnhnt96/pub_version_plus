@@ -21,4 +21,4 @@ dev_dependencies:
 scripts: derry.yaml
 
 executables:
-  pubversion:
+  pubversion: main
