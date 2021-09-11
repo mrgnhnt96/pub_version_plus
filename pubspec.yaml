@@ -1,5 +1,6 @@
 name: pub_version_plus
-description: A package to easily increment version numbers in pubspec.yaml files.
+description: Easily increment version numbers in pubspec.yaml files with a single command.
+repository: https://github.com/mrgnhnt96/pub_version_plus
 version: 1.0.0
 
 environment:
