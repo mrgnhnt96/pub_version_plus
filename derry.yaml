@@ -1,11 +1,14 @@
 major:
-  - dart run bin/pub_version_plus.dart major
+  - dart run ./bin/main.dart major
 
 minor:
-  - dart run bin/pub_version_plus.dart minor
+  - dart run ./bin/main.dart minor
 
 patch:
-  - dart run bin/pub_version_plus.dart patch
+  - dart run ./bin/main.dart patch
 
 build:
-  - dart run bin/pub_version_plus.dart build
+  - dart run ./bin/main.dart build
+
+test:
+  - dart test -j 1
