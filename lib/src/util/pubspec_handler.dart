@@ -143,12 +143,6 @@ extension on Version {
     return int.parse(buildNumber);
   }
 
-  String get buildString {
-    if (buildNumber == null) return '';
-
-    return '+$buildNumber';
-  }
-
   int get nextBuild => buildNumber == null ? 1 : (buildNumber! + 1);
 
   String get nextBuildString => '+$nextBuild';

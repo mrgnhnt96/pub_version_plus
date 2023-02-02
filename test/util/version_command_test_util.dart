@@ -5,6 +5,7 @@ import 'package:test/test.dart';
 typedef Initializer<T extends VersionCommand> = T Function();
 // typedef MethodCallback<R, T> = R Function(T);
 
+// ignore: avoid_classes_with_only_static_members
 class VersionCommandTestUtil {
   static void runTests<T extends VersionCommand>({
     // required String methodName,

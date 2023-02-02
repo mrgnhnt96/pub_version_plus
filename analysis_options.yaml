@@ -1,7 +1,5 @@
 analyzer:
   exclude: [build/**]
-  strong-mode:
-    implicit-casts: false
   errors:
     dead_code: error
     # unused_element: error

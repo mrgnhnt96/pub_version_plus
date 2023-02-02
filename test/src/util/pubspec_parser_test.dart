@@ -91,6 +91,7 @@ void main() {
 typedef Initializer = PubspecHandler Function();
 typedef SetUp = Future<void> Function(PubspecHandler handler);
 
+// ignore: avoid_classes_with_only_static_members
 class PubspecHandlerTestUtil {
   static void runTests({
     required PubVersion type,
