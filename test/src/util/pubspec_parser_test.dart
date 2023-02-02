@@ -127,7 +127,7 @@ class PubspecHandlerTestUtil {
         final updatedVersion = handler.version;
 
         expect(version, isNot(equals(updatedVersion)));
-        expect('$updatedVersion', equals(type.newVersion(hasBuild: true)));
+        expect('$updatedVersion', equals(type.newVersion(hasBuild: false)));
       });
     });
 
