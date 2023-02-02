@@ -46,9 +46,9 @@ class PubspecHandler {
   Version? _oldVerison;
   Version? get oldVersion => _oldVerison;
 
-  String get _nextMajorVersion => '${version.nextMajor}${version.buildString}';
-  String get _nextMinorVersion => '${version.nextMinor}${version.buildString}';
-  String get _nextPatchVersion => '${version.nextPatch}${version.buildString}';
+  String get _nextMajorVersion => '${version.nextMajor}';
+  String get _nextMinorVersion => '${version.nextMinor}';
+  String get _nextPatchVersion => '${version.nextPatch}';
   String get _nextBuildVersion =>
       '${version.current}${version.nextBuildString}';
 
