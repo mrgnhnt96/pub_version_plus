@@ -9,4 +9,4 @@
 /// ```
 library pub_version_plus;
 
-export 'src/command_runner.dart';
+export 'src/pub_version_runner.dart';

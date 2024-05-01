@@ -1,6 +1,6 @@
 import 'package:file/file.dart';
 import 'package:file/memory.dart';
-import 'package:pub_version_plus/src/command_runner.dart';
+import 'package:pub_version_plus/src/pub_version_runner.dart';
 import 'package:test/test.dart';
 
 void main() {
