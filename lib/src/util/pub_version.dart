@@ -1,10 +1,8 @@
-import 'package:io/io.dart';
-
+import '../command/version_command.dart';
 import '/src/command/build_command.dart';
 import '/src/command/major_command.dart';
 import '/src/command/minor_command.dart';
 import '/src/command/patch_command.dart';
-import '/src/command/version_commmand.dart';
 
 enum PubVersion {
   major,
@@ -63,31 +61,6 @@ extension PubVersionX on PubVersion {
         return 'pubversion patch';
       case PubVersion.build:
         return 'pubversion build';
-    }
-  }
-}
-
-enum VersionMessage {
-  success,
-  couldNotUpdateVersion,
-}
-
-extension VersionMessageX on VersionMessage {
-  int get code {
-    switch (this) {
-      case VersionMessage.success:
-        return ExitCode.success.code;
-      case VersionMessage.couldNotUpdateVersion:
-        return ExitCode.osFile.code;
-    }
-  }
-
-  String get message {
-    switch (this) {
-      case VersionMessage.success:
-        return 'Success';
-      case VersionMessage.couldNotUpdateVersion:
-        return 'Could not update the version';
     }
   }
 }

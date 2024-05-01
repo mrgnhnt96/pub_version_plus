@@ -1,6 +1,6 @@
 import 'package:pub_version_plus/src/command/patch_command.dart';
-import 'package:pub_version_plus/src/command/version_commmand.dart';
-import 'package:pub_version_plus/src/util/enum.dart';
+import 'package:pub_version_plus/src/command/version_command.dart';
+import 'package:pub_version_plus/src/util/pub_version.dart';
 import 'package:test/test.dart';
 
 import '../../util/pubspec.dart';

@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:meta/meta.dart';
 import 'package:pub_semver/pub_semver.dart';
+import 'package:pub_version_plus/src/util/exceptions.dart';
+import 'package:pub_version_plus/src/util/pub_version.dart';
+import 'package:pub_version_plus/src/util/version_message.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
-
-import '/src/util/enum.dart';
-import '/src/util/exceptions.dart';
 
 class PubspecHandler {
   PubspecHandler(this.path)

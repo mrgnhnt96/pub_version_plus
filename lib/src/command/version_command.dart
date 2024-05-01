@@ -1,7 +1,8 @@
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
+import 'package:pub_version_plus/src/util/pub_version.dart';
 
-import '/src/util/enum.dart';
+import '../util/version_message.dart';
 import '/src/util/pubspec_handler.dart';
 
 abstract class VersionCommand extends Command<int> {

@@ -2,10 +2,9 @@ import 'dart:async';
 
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
-
-import '/src/util/enum.dart';
-import 'util/util.dart';
-import 'version.dart';
+import 'package:pub_version_plus/src/util/pub_version.dart';
+import 'package:pub_version_plus/src/util/util.dart';
+import 'package:pub_version_plus/src/version.dart';
 
 export 'util/util.dart' show appName, appDescription;
 

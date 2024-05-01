@@ -1,5 +1,5 @@
-import 'package:pub_version_plus/src/util/enum.dart';
 import 'package:pub_version_plus/src/util/exceptions.dart';
+import 'package:pub_version_plus/src/util/pub_version.dart';
 import 'package:pub_version_plus/src/util/pubspec_handler.dart';
 import 'package:test/test.dart';
 
