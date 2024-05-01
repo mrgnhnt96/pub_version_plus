@@ -1,3 +1,5 @@
+import 'package:file/file.dart';
+import 'package:file/memory.dart';
 import 'package:pub_version_plus/src/util/exceptions.dart';
 import 'package:pub_version_plus/src/util/pub_version.dart';
 import 'package:pub_version_plus/src/util/pubspec_handler.dart';
@@ -6,11 +8,22 @@ import 'package:test/test.dart';
 import '../../util/pubspec.dart';
 
 void main() {
-  final pubspecHasVersion = PubspecHandler(pubspecWithVersion);
-  final pubspecHasNoVersion = PubspecHandler(pubspecWithNoVersion);
+  late PubspecHandler versionHandler;
+  late PubspecHandler noVersionHandler;
+  late FileSystem fs;
+
+  setUp(() async {
+    fs = MemoryFileSystem();
+
+    await pubspecWithVersion.write(fs);
+    await pubspecWithNoVersion.write(fs);
+
+    versionHandler = PubspecHandler(pubspecWithVersion.path, fs: fs);
+    noVersionHandler = PubspecHandler(pubspecWithNoVersion.path, fs: fs);
+  });
 
   test('should fail when not initialized', () {
-    final handler = PubspecHandler(pubspecWithVersion);
+    final handler = PubspecHandler(pubspecWithVersion.path, fs: fs);
     expect(() => handler.pubspec, throwsA(isA<HasNotInitiatedException>()));
     expect(() => handler.version, throwsA(isA<HasNotInitiatedException>()));
   });
@@ -25,28 +38,28 @@ void main() {
 
     PubspecHandlerTestUtil.runTests(
       type: PubVersion.major,
-      initializer: () => pubspecHasVersion,
+      initializer: () => versionHandler,
       additionalHasBuildSetUp: additionalHasBuildSetUp,
       additionalNoBuildSetUp: additionalNoBuildSetUp,
       additionalTearDown: tearDown,
     );
     PubspecHandlerTestUtil.runTests(
       type: PubVersion.minor,
-      initializer: () => pubspecHasVersion,
+      initializer: () => versionHandler,
       additionalHasBuildSetUp: additionalHasBuildSetUp,
       additionalNoBuildSetUp: additionalNoBuildSetUp,
       additionalTearDown: tearDown,
     );
     PubspecHandlerTestUtil.runTests(
       type: PubVersion.patch,
-      initializer: () => pubspecHasVersion,
+      initializer: () => versionHandler,
       additionalHasBuildSetUp: additionalHasBuildSetUp,
       additionalNoBuildSetUp: additionalNoBuildSetUp,
       additionalTearDown: tearDown,
     );
     PubspecHandlerTestUtil.runTests(
       type: PubVersion.build,
-      initializer: () => pubspecHasVersion,
+      initializer: () => versionHandler,
       additionalHasBuildSetUp: additionalHasBuildSetUp,
       additionalNoBuildSetUp: additionalNoBuildSetUp,
       additionalTearDown: tearDown,
@@ -59,28 +72,28 @@ void main() {
 
     PubspecHandlerTestUtil.runTests(
       type: PubVersion.major,
-      initializer: () => pubspecHasNoVersion,
+      initializer: () => noVersionHandler,
       additionalHasBuildSetUp: additionalSetUp,
       additionalNoBuildSetUp: additionalSetUp,
       additionalTearDown: tearDown,
     );
     PubspecHandlerTestUtil.runTests(
       type: PubVersion.minor,
-      initializer: () => pubspecHasNoVersion,
+      initializer: () => noVersionHandler,
       additionalHasBuildSetUp: additionalSetUp,
       additionalNoBuildSetUp: additionalSetUp,
       additionalTearDown: tearDown,
     );
     PubspecHandlerTestUtil.runTests(
       type: PubVersion.patch,
-      initializer: () => pubspecHasNoVersion,
+      initializer: () => noVersionHandler,
       additionalHasBuildSetUp: additionalSetUp,
       additionalNoBuildSetUp: additionalSetUp,
       additionalTearDown: tearDown,
     );
     PubspecHandlerTestUtil.runTests(
       type: PubVersion.build,
-      initializer: () => pubspecHasNoVersion,
+      initializer: () => noVersionHandler,
       additionalHasBuildSetUp: additionalSetUp,
       additionalNoBuildSetUp: additionalSetUp,
       additionalTearDown: tearDown,

@@ -1,8 +1,9 @@
-import '../command/version_command.dart';
-import '/src/command/build_command.dart';
-import '/src/command/major_command.dart';
-import '/src/command/minor_command.dart';
-import '/src/command/patch_command.dart';
+import 'package:file/file.dart';
+import 'package:pub_version_plus/src/command/build_command.dart';
+import 'package:pub_version_plus/src/command/major_command.dart';
+import 'package:pub_version_plus/src/command/minor_command.dart';
+import 'package:pub_version_plus/src/command/patch_command.dart';
+import 'package:pub_version_plus/src/command/version_command.dart';
 
 enum PubVersion {
   major,
@@ -38,16 +39,16 @@ extension PubVersionX on PubVersion {
     }
   }
 
-  VersionCommand command(String path) {
+  VersionCommand command(String path, {required FileSystem fs}) {
     switch (this) {
       case PubVersion.major:
-        return MajorCommand(path);
+        return MajorCommand(path, fs: fs);
       case PubVersion.minor:
-        return MinorCommand(path);
+        return MinorCommand(path, fs: fs);
       case PubVersion.patch:
-        return PatchCommand(path);
+        return PatchCommand(path, fs: fs);
       case PubVersion.build:
-        return BuildCommand(path);
+        return BuildCommand(path, fs: fs);
     }
   }
 

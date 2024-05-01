@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:file/file.dart';
 import 'package:meta/meta.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pub_version_plus/src/util/exceptions.dart';
@@ -8,8 +7,10 @@ import 'package:pub_version_plus/src/util/version_message.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
 
 class PubspecHandler {
-  PubspecHandler(this.path)
-      : _file = File(path),
+  PubspecHandler(
+    this.path, {
+    required FileSystem fs,
+  })  : _file = fs.file(path),
         assert(path.contains('.yaml')) {
     initialize();
   }
@@ -43,8 +44,8 @@ class PubspecHandler {
     return pubspec.version ?? Version.parse('0.0.0');
   }
 
-  Version? _oldVerison;
-  Version? get oldVersion => _oldVerison;
+  Version? _oldVersion;
+  Version? get oldVersion => _oldVersion;
 
   String get _nextMajorVersion => '${version.nextMajor}';
   String get _nextMinorVersion => '${version.nextMinor}';
@@ -90,7 +91,7 @@ class PubspecHandler {
       await _file.writeAsString(output, mode: FileMode.write);
 
       // Update old version for reference
-      _oldVerison = version;
+      _oldVersion = version;
 
       // update content to reflect new version
       _content = Pubspec.parse(output);
@@ -108,7 +109,7 @@ class PubspecHandler {
   Future<void> reset({bool hasBuild = false}) async {
     final version = hasBuild ? '0.0.0+0' : '0.0.0';
     await _updateVersion(version);
-    _oldVerison = null;
+    _oldVersion = null;
   }
 
   @visibleForTesting
