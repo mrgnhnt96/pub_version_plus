@@ -1,3 +1,16 @@
+# 2.0.0
+
+# Enhancements
+
+- Upgrade dependencies
+- Improve testability of package
+
+# Features
+
+- Added `get` command to retrieve the current version within the `pubspec.yaml` file
+- Added `set` command to set the version within the `pubspec.yaml` file
+  - Use `--force` to bypass the check for an incremented version
+
 # 1.1.0
 
 - Upgraded dependencies to latest versions
