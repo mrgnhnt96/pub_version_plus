@@ -29,13 +29,13 @@ extension PubVersionX on PubVersion {
   String get description {
     switch (this) {
       case PubVersion.major:
-        return 'Increment the major version number. X.0.0';
+        return 'Increments the version to the next major version number: X.0.0';
       case PubVersion.minor:
-        return 'Increment the minor version number. 0.X.0';
+        return 'Increments the version to the next minor version number: 0.X.0';
       case PubVersion.patch:
-        return 'Increment the patch version number. 0.0.X';
+        return 'Increments the version to the next patch version number: 0.0.X';
       case PubVersion.build:
-        return 'Increment the build number. 0.0.0+X';
+        return 'Increments the version to the next build number: 0.0.0+X';
     }
   }
 

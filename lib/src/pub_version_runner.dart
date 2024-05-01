@@ -3,7 +3,10 @@ import 'dart:async';
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:file/file.dart';
+import 'package:pub_version_plus/src/command/get_command.dart';
+import 'package:pub_version_plus/src/command/set_command.dart';
 import 'package:pub_version_plus/src/util/pub_version.dart';
+import 'package:pub_version_plus/src/util/pubspec_handler.dart';
 import 'package:pub_version_plus/src/util/util.dart';
 import 'package:pub_version_plus/src/version.dart';
 
@@ -22,6 +25,9 @@ class PubVersionRunner extends CommandRunner<int> {
     for (final e in PubVersion.values) {
       addCommand(e.command(pubspecPath, fs: fs));
     }
+
+    addCommand(SetCommand(PubspecHandler(pubspecPath, fs: fs)));
+    addCommand(GetCommand(PubspecHandler(pubspecPath, fs: fs)));
   }
 
   final FileSystem fs;

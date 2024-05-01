@@ -23,12 +23,6 @@ abstract class VersionCommand extends Command<int> {
   @override
   String get description;
 
-  @override
-  String get invocation => type.invocation;
-
-  @override
-  String get summary => '$invocation\n$description';
-
   void checkUnsupported() {
     var unsupported =
         argResults?.rest.where((arg) => !arg.startsWith('-')).toList();

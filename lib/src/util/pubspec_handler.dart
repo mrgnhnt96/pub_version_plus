@@ -70,6 +70,8 @@ class PubspecHandler {
   Future<VersionMessage> nextVersion(PubVersion nextVersion) =>
       _updateVersion(_nextVersionString(nextVersion));
 
+  Future<VersionMessage> setVersion(String version) => _updateVersion(version);
+
   Future<VersionMessage> _updateVersion(String v) async {
     final versionLine = 'version: $v';
 
