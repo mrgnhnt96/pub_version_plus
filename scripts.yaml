@@ -1,5 +1,9 @@
 test: sip test --bail --recursive --concurrent --test-randomize-ordering-seed random
 
+install:
+  (aliases): i
+  (command): dart pub global activate . --source path --overwrite
+
 clean:
   (command):
     - dart analyze .
