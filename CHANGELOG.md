@@ -1,3 +1,20 @@
+# 3.0.0
+
+## Breaking Changes
+
+- Instead of resetting the build number to 0 after every release, the build number will now be incremented by 1
+  - This is to ensure that the build number is always increasing
+  - If you want to reset the build number to 0, you can use the `--build` flag with the `reset` option
+
+# Features
+
+- Support modifying the build number via the `--build` flag
+  - Options:
+    - `reset` - Reset the build number to 0
+    - `increment` - Increment the build number by 1, if it exists
+    - `remove` - Remove the build number from the version
+    - `none` - Do not modify the build number
+
 # 2.0.0
 
 # Enhancements
