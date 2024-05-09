@@ -7,7 +7,20 @@ import 'package:pub_version_plus/src/util/version_message.dart';
 
 abstract class VersionCommand extends Command<int> {
   VersionCommand(this.path, {required FileSystem fs})
-      : handler = PubspecHandler(path, fs: fs);
+      : handler = PubspecHandler(path, fs: fs) {
+    argParser.addOption(
+      'build',
+      abbr: 'b',
+      allowed: [
+        for (final build in ModifyBuild.values) build.name,
+      ],
+      help: 'How to modify the build number.',
+      defaultsTo: ModifyBuild.increment.name,
+      allowedHelp: {
+        for (final build in ModifyBuild.values) build.name: build.description,
+      },
+    );
+  }
 
   final String path;
   final PubspecHandler handler;
@@ -38,7 +51,13 @@ abstract class VersionCommand extends Command<int> {
     checkUnsupported();
     await handler.initialize();
 
-    final message = await handler.nextVersion(type);
+    final modifyBuild =
+        ModifyBuild.values.byName(argResults!['build'] as String);
+
+    final message = await handler.nextVersion(
+      type,
+      modifyBuild: modifyBuild,
+    );
 
     return message.code;
   }

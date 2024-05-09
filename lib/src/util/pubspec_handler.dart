@@ -47,28 +47,53 @@ class PubspecHandler {
   Version? _oldVersion;
   Version? get oldVersion => _oldVersion;
 
-  String get _nextMajorVersion => '${version.nextMajor}';
-  String get _nextMinorVersion => '${version.nextMinor}';
-  String get _nextPatchVersion => '${version.nextPatch}';
-  String get _nextBuildVersion =>
-      '${version.current}${version.nextBuildString}';
+  String nextMajorVersion({required ModifyBuild modifyBuild}) {
+    return [
+      '${version.nextMajor}',
+      version.modifyBuild(modifyBuild),
+    ].join();
+  }
 
-  String _nextVersionString(PubVersion v) {
+  String nextMinorVersion({required ModifyBuild modifyBuild}) {
+    return [
+      '${version.nextMinor}',
+      version.modifyBuild(modifyBuild),
+    ].join();
+  }
+
+  String nextPatchVersion({required ModifyBuild modifyBuild}) {
+    return [
+      '${version.nextPatch}',
+      version.modifyBuild(modifyBuild),
+    ].join();
+  }
+
+  String get nextBuildVersion {
+    return '${version.current}${version.nextBuildString}';
+  }
+
+  String _nextVersionString(
+    PubVersion v, {
+    required ModifyBuild modifyBuild,
+  }) {
     switch (v) {
       case PubVersion.major:
-        return _nextMajorVersion;
+        return nextMajorVersion(modifyBuild: modifyBuild);
       case PubVersion.minor:
-        return _nextMinorVersion;
+        return nextMinorVersion(modifyBuild: modifyBuild);
       case PubVersion.patch:
-        return _nextPatchVersion;
+        return nextPatchVersion(modifyBuild: modifyBuild);
       case PubVersion.build:
-        return _nextBuildVersion;
+        return nextBuildVersion;
     }
   }
 
   /// Replaces the version in the pubspec.yaml file with [nextVersion]
-  Future<VersionMessage> nextVersion(PubVersion nextVersion) =>
-      _updateVersion(_nextVersionString(nextVersion));
+  Future<VersionMessage> nextVersion(
+    PubVersion nextVersion, {
+    required ModifyBuild modifyBuild,
+  }) =>
+      _updateVersion(_nextVersionString(nextVersion, modifyBuild: modifyBuild));
 
   Future<VersionMessage> setVersion(String version) => _updateVersion(version);
 
@@ -146,9 +171,44 @@ extension on Version {
     return int.parse(buildNumber);
   }
 
+  String get buildNumberString => buildNumber == null ? '' : '+$buildNumber';
+
   int get nextBuild => buildNumber == null ? 1 : (buildNumber! + 1);
 
   String get nextBuildString => '+$nextBuild';
 
   String get current => '$major.$minor.$patch';
+
+  String modifyBuild(ModifyBuild modify) {
+    return switch (modify) {
+      ModifyBuild.increment => nextBuildString,
+      ModifyBuild.reset => '+0',
+      ModifyBuild.remove => '',
+      ModifyBuild.none => buildNumberString,
+    };
+  }
+}
+
+enum ModifyBuild {
+  increment,
+  reset,
+  remove,
+  none;
+
+  bool get isIncrement => this == ModifyBuild.increment;
+  bool get isReset => this == ModifyBuild.reset;
+  bool get isRemove => this == ModifyBuild.remove;
+
+  String get description {
+    switch (this) {
+      case ModifyBuild.increment:
+        return 'Increment the build number, if it exists.';
+      case ModifyBuild.reset:
+        return 'Reset the build number to 0.';
+      case ModifyBuild.remove:
+        return 'Remove the build number.';
+      case ModifyBuild.none:
+        return 'Do nothing to the build number, if it exists.';
+    }
+  }
 }

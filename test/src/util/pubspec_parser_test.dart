@@ -136,7 +136,7 @@ class PubspecHandlerTestUtil {
       test('should return new version ${type.newVersion(hasBuild: true)}',
           () async {
         final version = handler.version;
-        await handler.nextVersion(type);
+        await handler.nextVersion(type, modifyBuild: ModifyBuild.remove);
         final updatedVersion = handler.version;
 
         expect(version, isNot(equals(updatedVersion)));
@@ -151,7 +151,7 @@ class PubspecHandlerTestUtil {
 
       test('should return new version  ${type.newVersion()}', () async {
         final version = handler.version;
-        await handler.nextVersion(type);
+        await handler.nextVersion(type, modifyBuild: ModifyBuild.remove);
         final updatedVersion = handler.version;
 
         expect(version, isNot(equals(updatedVersion)));
@@ -183,7 +183,7 @@ class PubspecHandlerTestUtil {
       test('should return new version  ${type.newVersion(hasBuild: true)}',
           () async {
         final version = handler.version;
-        await handler.nextVersion(type);
+        await handler.nextVersion(type, modifyBuild: ModifyBuild.remove);
         final updatedVersion = handler.version;
 
         expect(version, isNot(equals(updatedVersion)));
@@ -202,7 +202,7 @@ class PubspecHandlerTestUtil {
 
       test('should return new version  ${type.newVersion()}', () async {
         final version = handler.version;
-        await handler.nextVersion(type);
+        await handler.nextVersion(type, modifyBuild: ModifyBuild.remove);
         final updatedVersion = handler.version;
 
         expect(version, isNot(equals(updatedVersion)));
