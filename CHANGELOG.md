@@ -1,14 +1,9 @@
-## 3.1.1 | 4.17.25
+## 3.1.2 | 4.17.25
 
-### Features
+### Fixes
 
-- Add Support for pre-releases
-
-### Enhancements
-
-- Update ReadMe for
-  - Pre-Releases
-  - Build Number modification
+- Does not add build number if the build number is not present
+  - If the `--build` flag is provided, then the build number will be modified (unless the mode is `none`)
 
 ## 3.0.0 | 5.8.24
 
