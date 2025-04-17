@@ -9,18 +9,19 @@ void main() {
     late PubVersionRunner runner;
     late File pubspec;
 
-    setUp(() async {
+    setUp(() {
       fs = MemoryFileSystem.test();
-      runner = PubVersionRunner(fs: fs);
 
       pubspec = fs.file('pubspec.yaml');
 
-      await pubspec.create();
+      pubspec.createSync(recursive: true);
 
-      await pubspec.writeAsString('''
+      pubspec.writeAsStringSync('''
 name: test
 version: 0.0.1
 ''');
+
+      runner = PubVersionRunner(fs: fs);
     });
 
     test('major should return with a 0 exit code ', () async {
