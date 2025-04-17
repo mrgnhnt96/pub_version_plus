@@ -1,6 +1,7 @@
 import 'package:file/file.dart';
 import 'package:file/memory.dart';
 import 'package:pub_version_plus/src/util/exceptions.dart';
+import 'package:pub_version_plus/src/util/modify_build.dart';
 import 'package:pub_version_plus/src/util/pub_version.dart';
 import 'package:pub_version_plus/src/util/pubspec_handler.dart';
 import 'package:test/test.dart';
@@ -10,6 +11,7 @@ import '../../util/pubspec.dart';
 void main() {
   late PubspecHandler versionHandler;
   late PubspecHandler noVersionHandler;
+  late PubspecHandler preReleaseHandler;
   late FileSystem fs;
 
   setUp(() async {
@@ -17,9 +19,11 @@ void main() {
 
     await pubspecWithVersion.write(fs);
     await pubspecWithNoVersion.write(fs);
+    await pubspecWithPreRelease.write(fs);
 
     versionHandler = PubspecHandler(pubspecWithVersion.path, fs: fs);
     noVersionHandler = PubspecHandler(pubspecWithNoVersion.path, fs: fs);
+    preReleaseHandler = PubspecHandler(pubspecWithPreRelease.path, fs: fs);
   });
 
   test('should fail when not initialized', () {
@@ -94,6 +98,40 @@ void main() {
     PubspecHandlerTestUtil.runTests(
       type: PubVersion.build,
       initializer: () => noVersionHandler,
+      additionalHasBuildSetUp: additionalSetUp,
+      additionalNoBuildSetUp: additionalSetUp,
+      additionalTearDown: tearDown,
+    );
+  });
+
+  group('Has PreRelease,', () {
+    final additionalSetUp = (PubspecHandler handler) => handler.removeVersion();
+    final tearDown = (PubspecHandler handler) => handler.removeVersion();
+
+    PubspecHandlerTestUtil.runTests(
+      type: PubVersion.major,
+      initializer: () => preReleaseHandler,
+      additionalHasBuildSetUp: additionalSetUp,
+      additionalNoBuildSetUp: additionalSetUp,
+      additionalTearDown: tearDown,
+    );
+    PubspecHandlerTestUtil.runTests(
+      type: PubVersion.minor,
+      initializer: () => preReleaseHandler,
+      additionalHasBuildSetUp: additionalSetUp,
+      additionalNoBuildSetUp: additionalSetUp,
+      additionalTearDown: tearDown,
+    );
+    PubspecHandlerTestUtil.runTests(
+      type: PubVersion.patch,
+      initializer: () => preReleaseHandler,
+      additionalHasBuildSetUp: additionalSetUp,
+      additionalNoBuildSetUp: additionalSetUp,
+      additionalTearDown: tearDown,
+    );
+    PubspecHandlerTestUtil.runTests(
+      type: PubVersion.build,
+      initializer: () => preReleaseHandler,
       additionalHasBuildSetUp: additionalSetUp,
       additionalNoBuildSetUp: additionalSetUp,
       additionalTearDown: tearDown,
