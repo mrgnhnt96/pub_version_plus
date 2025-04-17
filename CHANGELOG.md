@@ -1,12 +1,24 @@
-# 3.0.0
+## 3.1.0 | 4.17.25
 
-## Breaking Changes
+### Features
+
+- Add Support for pre-releases
+
+### Enhancements
+
+- Update ReadMe for
+  - Pre-Releases
+  - Build Number modification
+
+## 3.0.0 | 5.8.24
+
+### Breaking Changes
 
 - Instead of resetting the build number to 0 after every release, the build number will now be incremented by 1
   - This is to ensure that the build number is always increasing
   - If you want to reset the build number to 0, you can use the `--build` flag with the `reset` option
 
-# Features
+### Features
 
 - Support modifying the build number via the `--build` flag
   - Options:
@@ -15,37 +27,37 @@
     - `remove` - Remove the build number from the version
     - `none` - Do not modify the build number
 
-# 2.0.0
+## 2.0.0
 
-# Enhancements
+### Enhancements
 
 - Upgrade dependencies
 - Improve testability of package
 
-# Features
+### Features
 
 - Added `get` command to retrieve the current version within the `pubspec.yaml` file
 - Added `set` command to set the version within the `pubspec.yaml` file
   - Use `--force` to bypass the check for an incremented version
 
-# 1.1.0
+## 1.1.0
 
 - Upgraded dependencies to latest versions
 
-## Fixes
+### Fixes
 
 - Build numbers are incremented correctly when running patch
 
-# 1.0.2
+## 1.0.2
 
 - Updated ReadMe to
   - Better explain version number
   - Provide how to install as dev dependency
 
-# 1.0.1
+## 1.0.1
 
 - Updated ReadMe
 
-# 1.0.0
+## 1.0.0
 
 - Initial Release
