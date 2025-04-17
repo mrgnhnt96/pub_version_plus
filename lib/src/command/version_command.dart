@@ -62,6 +62,19 @@ abstract class VersionCommand extends Command<int> {
     };
   }
 
+  ModifyBuild get modifyBuild {
+    return switch (argResults?['build']) {
+      final String value when value.trim().isNotEmpty =>
+        ModifyBuild.values.byName(value.trim()),
+      _ => ModifyBuild.increment,
+    };
+  }
+
+  /// checks if the `--build` flag was provided or if its the default value
+  bool get modifyBuildIfNotPresent {
+    return argResults?.wasParsed('build') ?? false;
+  }
+
   @override
   Future<int> run() => increaseVersion();
 
@@ -69,13 +82,11 @@ abstract class VersionCommand extends Command<int> {
     checkUnsupported();
     await handler.initialize();
 
-    final modifyBuild =
-        ModifyBuild.values.byName(argResults!['build'] as String);
-
     final message = await handler.nextVersion(
       type,
       modifyBuild: modifyBuild,
       preRelease: preRelease,
+      modifyBuildIfNotPresent: modifyBuildIfNotPresent,
     );
 
     return message.code;

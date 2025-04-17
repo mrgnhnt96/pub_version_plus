@@ -24,36 +24,41 @@ version: 0.0.1
       runner = PubVersionRunner(fs: fs);
     });
 
+    Future<String> getVersion() async {
+      final content = await pubspec.readAsString();
+      return content.split('version: ').last.split('\n').first;
+    }
+
     test('major should return with a 0 exit code ', () async {
       final exitCode = await runner.run(['major']);
       expect(exitCode, equals(0));
 
-      final content = await pubspec.readAsString();
-      expect(content, contains('version: 1.0.0'));
+      final version = await getVersion();
+      expect(version, equals('1.0.0'));
     });
 
     test('minor should return with a 0 exit code ', () async {
       final exitCode = await runner.run(['minor']);
       expect(exitCode, equals(0));
 
-      final content = await pubspec.readAsString();
-      expect(content, contains('version: 0.1.0'));
+      final version = await getVersion();
+      expect(version, equals('0.1.0'));
     });
 
     test('patch should return with a 0 exit code ', () async {
       final exitCode = await runner.run(['patch']);
       expect(exitCode, equals(0));
 
-      final content = await pubspec.readAsString();
-      expect(content, contains('version: 0.0.2'));
+      final version = await getVersion();
+      expect(version, equals('0.0.2'));
     });
 
     test('build should return with a 0 exit code ', () async {
       final exitCode = await runner.run(['build']);
       expect(exitCode, equals(0));
 
-      final content = await pubspec.readAsString();
-      expect(content, contains('version: 0.0.1+1'));
+      final version = await getVersion();
+      expect(version, equals('0.0.1+1'));
     });
   });
 }

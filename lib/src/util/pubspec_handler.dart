@@ -51,15 +51,16 @@ class PubspecHandler {
   Future<VersionMessage> nextVersion(
     PubVersion nextVersion, {
     required ModifyBuild modifyBuild,
+    bool modifyBuildIfNotPresent = false,
     String? preRelease,
-  }) =>
-      _updateVersion(
-        VersionConversion(version: version).next(
-          nextVersion,
-          modifyBuild: modifyBuild,
-          preRelease: preRelease,
-        ),
-      );
+  }) {
+    return _updateVersion(VersionConversion(version: version).next(
+      nextVersion,
+      modifyBuild: modifyBuild,
+      preRelease: preRelease,
+      modifyBuildIfNotPresent: modifyBuildIfNotPresent,
+    ));
+  }
 
   Future<VersionMessage> setVersion(String version) => _updateVersion(version);
 

@@ -12,11 +12,25 @@ class VersionConversion {
 
   final Version version;
 
+  int? get buildNumber => version.buildNumber;
+
   String next(
     PubVersion type, {
-    required ModifyBuild modifyBuild,
+    required ModifyBuild? modifyBuild,
+    required bool modifyBuildIfNotPresent,
     String? preRelease,
   }) {
+    if (buildNumber == null &&
+        !modifyBuildIfNotPresent &&
+        modifyBuild != null) {
+      return next(
+        type,
+        modifyBuild: null,
+        modifyBuildIfNotPresent: false,
+        preRelease: preRelease,
+      );
+    }
+
     return switch (type) {
       PubVersion.major => nextMajor(
           modifyBuild: modifyBuild,
@@ -35,7 +49,7 @@ class VersionConversion {
   }
 
   String nextMajor({
-    required ModifyBuild modifyBuild,
+    required ModifyBuild? modifyBuild,
     String? preRelease,
   }) {
     return [
@@ -49,7 +63,7 @@ class VersionConversion {
   }
 
   String nextMinor({
-    required ModifyBuild modifyBuild,
+    required ModifyBuild? modifyBuild,
     String? preRelease,
   }) {
     return [
@@ -63,7 +77,7 @@ class VersionConversion {
   }
 
   String nextPatch({
-    required ModifyBuild modifyBuild,
+    required ModifyBuild? modifyBuild,
     String? preRelease,
   }) {
     return [
@@ -83,6 +97,17 @@ class VersionConversion {
       version.nextBuildString,
     ].join();
   }
+
+  String get currentWithBuild {
+    return [
+      version.current,
+      version.preReleaseString,
+      switch (version.buildNumberString) {
+        '' => '+0',
+        final String build => build,
+      },
+    ].join();
+  }
 }
 
 extension on Version {
@@ -98,9 +123,15 @@ extension on Version {
     return int.parse(buildNumber);
   }
 
-  String get buildNumberString => buildNumber == null ? '' : '+$buildNumber';
+  String get buildNumberString => switch (buildNumber) {
+        null => '',
+        final int build => '+$build',
+      };
 
-  int get nextBuild => buildNumber == null ? 1 : (buildNumber! + 1);
+  int get nextBuild => switch (buildNumber) {
+        null => 1,
+        final int build => build + 1,
+      };
 
   String get nextBuildString => '+$nextBuild';
 
@@ -111,11 +142,13 @@ extension on Version {
     return '';
   }
 
-  String modifyBuild(ModifyBuild modify) {
+  String modifyBuild(ModifyBuild? modify) {
+    if (buildNumber == null && modify == null) return '';
+
     return switch (modify) {
       ModifyBuild.increment => nextBuildString,
       ModifyBuild.reset => '+0',
-      ModifyBuild.remove => '',
+      ModifyBuild.remove || null => '',
       ModifyBuild.none => buildNumberString,
     };
   }
