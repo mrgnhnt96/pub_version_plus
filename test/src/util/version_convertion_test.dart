@@ -44,6 +44,18 @@ void main() {
         expect(next, '1.2.4+1');
       });
 
+      test('should not increment build number if not present and mode is none',
+          () {
+        final version = VersionConversion.fromString('1.2.3');
+        final next = version.next(
+          PubVersion.patch,
+          modifyBuild: ModifyBuild.none,
+          modifyBuildIfNotPresent: true,
+        );
+
+        expect(next, '1.2.4');
+      });
+
       test('should not increment build number if not present', () {
         final version = VersionConversion.fromString('1.2.3');
         final next = version.next(
