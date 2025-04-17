@@ -75,6 +75,7 @@ abstract class VersionCommand extends Command<int> {
     final message = await handler.nextVersion(
       type,
       modifyBuild: modifyBuild,
+      preRelease: preRelease,
     );
 
     return message.code;
