@@ -77,6 +77,54 @@ void main() {
 
         expect(next, '1.2.4+0');
       });
+
+      test('should add pre-release when incrementing build number', () {
+        final version = VersionConversion.fromString('1.2.3');
+        final next = version.next(
+          PubVersion.build,
+          modifyBuild: ModifyBuild.increment,
+          modifyBuildIfNotPresent: true,
+          preRelease: 'beta',
+        );
+
+        expect(next, '1.2.3-beta+1');
+      });
+
+      test('should add pre-release when incrementing patch number', () {
+        final version = VersionConversion.fromString('1.2.3');
+        final next = version.next(
+          PubVersion.patch,
+          modifyBuild: ModifyBuild.increment,
+          modifyBuildIfNotPresent: false,
+          preRelease: 'beta',
+        );
+
+        expect(next, '1.2.4-beta');
+      });
+
+      test('should add pre-release when incrementing minor number', () {
+        final version = VersionConversion.fromString('1.2.3');
+        final next = version.next(
+          PubVersion.minor,
+          modifyBuild: ModifyBuild.increment,
+          modifyBuildIfNotPresent: false,
+          preRelease: 'beta',
+        );
+
+        expect(next, '1.3.0-beta');
+      });
+
+      test('should add pre-release when incrementing major number', () {
+        final version = VersionConversion.fromString('1.2.3');
+        final next = version.next(
+          PubVersion.major,
+          modifyBuild: ModifyBuild.increment,
+          modifyBuildIfNotPresent: false,
+          preRelease: 'beta',
+        );
+
+        expect(next, '2.0.0-beta');
+      });
     });
 
     group('#nextMajor', () {

@@ -93,7 +93,10 @@ class VersionConversion {
   String nextBuild({String? preRelease}) {
     return [
       version.current,
-      if (preRelease != null) '-$preRelease' else version.preReleaseString,
+      switch (preRelease) {
+        final String p => '-$p',
+        _ => version.preReleaseString,
+      },
       version.nextBuildString,
     ].join();
   }
