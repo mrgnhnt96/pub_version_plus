@@ -354,7 +354,7 @@ void main() {
 
         for (final MapEntry(:key, :value) in versions.entries) {
           final version = VersionConversion.fromString(key);
-          expect(version.nextBuild, value);
+          expect(version.nextBuild(), value);
         }
       });
     });
