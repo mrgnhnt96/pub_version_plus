@@ -1,4 +1,4 @@
-test: sip test --bail --recursive --concurrent --test-randomize-ordering-seed random
+test: sip test --bail --recursive --test-randomize-ordering-seed random
 
 install:
   (aliases): i

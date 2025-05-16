@@ -1,3 +1,10 @@
+## 3.1.3 | 5.16.25
+
+### Fixes
+
+- Issue where pre-release was not being added when incrementing build number
+  - Thanks [@Nguyen-Ngoc-Phuoc](https://github.com/Nguyen-Ngoc-Phuoc) for contributing!
+
 ## 3.1.2 | 4.17.25
 
 ### Fixes
