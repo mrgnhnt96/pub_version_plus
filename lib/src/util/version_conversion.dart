@@ -44,7 +44,7 @@ class VersionConversion {
           modifyBuild: modifyBuild,
           preRelease: preRelease,
         ),
-      PubVersion.build => nextBuild,
+      PubVersion.build => nextBuild(preRelease: preRelease),
     };
   }
 
@@ -90,10 +90,10 @@ class VersionConversion {
     ].join();
   }
 
-  String get nextBuild {
+  String nextBuild({String? preRelease}) {
     return [
       version.current,
-      version.preReleaseString,
+      if (preRelease != null) '-$preRelease' else version.preReleaseString,
       version.nextBuildString,
     ].join();
   }
